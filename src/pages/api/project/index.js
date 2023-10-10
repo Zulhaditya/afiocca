@@ -1,5 +1,5 @@
-import { connectMongoDB } from "../../../util/mongodb"
-import Project from "../../../models/projects"
+import { connectMongoDB } from "@util/mongodb"
+import Project from "@models/projects"
 
 export default async function handler(req, res) {
   await connectMongoDB();

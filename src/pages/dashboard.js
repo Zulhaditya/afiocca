@@ -6,7 +6,7 @@ const AdminProject = () => {
 
   useEffect(() => {
     // get data from api
-    fetch('/api/projects', {
+    fetch('/api/project/', {
       method: 'GET',
     }).then((response) => response.json()).then((data) => {
       setProjects(data)
@@ -18,7 +18,7 @@ const AdminProject = () => {
   // handle delete project
   const handleDeleteProject = async (projectId) => {
     try {
-      const response = await fetch(`/api/projects/${projectId}`, {
+      const response = await fetch(`/api/project/${projectId}`, {
         method: 'DELETE',
       });
 
@@ -31,7 +31,7 @@ const AdminProject = () => {
         console.error('Error deleting project');
       }
     } catch (error) {
-      console.error('Error deleting project:', error);
+      console.error('Error deleting project!', error);
     }
   };
 

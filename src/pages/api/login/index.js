@@ -1,5 +1,5 @@
-import { connectMongoDB } from "../../../util/mongodb"
-import User from "../../../models/user"
+import { connectMongoDB } from "@util/mongodb"
+import User from "@models/user"
 
 export default async function handler(req, res) {
 
