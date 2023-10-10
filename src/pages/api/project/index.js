@@ -2,7 +2,7 @@ import { connectMongoDB } from "@util/mongodb"
 import Project from "@models/projects"
 
 export default async function handler(req, res) {
-  await connectMongoDB();
+  await connectMongoDB()
 
   switch (req.method) {
     case "POST":
@@ -14,7 +14,7 @@ export default async function handler(req, res) {
           projectTags,
           uploadVideo,
           uploadImage
-        } = req.body;
+        } = req.body
 
         const project = new Project({
           projectTitle,
@@ -23,41 +23,30 @@ export default async function handler(req, res) {
           projectTags,
           uploadVideo,
           uploadImage
-        });
+        })
 
-        await project.save();
+        await project.save()
 
-        res.status(201).json({ message: "Project added successfully" });
+        res.status(201).json({ message: "Project added successfully" })
       } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Internal server error" });
+        console.error(error)
+        res.status(500).json({ message: "Internal server error" })
       }
-      break;
+      break
 
     case "GET":
       try {
-        const projects = await Project.find();
-        res.status(200).json(projects);
+        const projects = await Project.find()
+        res.status(200).json(projects)
       } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Internal server error" });
-      }
-      break;
-
-    case "DELETE":
-      try {
-        const projectId = req.query.projectId;
-        await Project.findByIdAndDelete(projectId);
-        res.status(200).json({ message: "Project deleted successfully" });
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Internal server error" });
+        console.error(error)
+        res.status(500).json({ message: "Internal server error" })
       }
       break;
 
     default:
-      res.status(405).json({ message: "Method not allowed" });
-      break;
+      res.status(405).json({ message: "Method not allowed" })
+      break
   }
 }
 

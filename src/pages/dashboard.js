@@ -35,7 +35,6 @@ const AdminProject = () => {
     }
   };
 
-
   return (
     <div className="text-center my-10 mx-auto w-[1200px]">
       <h1 className="text-4xl font-bold text-white">Dashboard</h1>
@@ -59,7 +58,7 @@ const AdminProject = () => {
             className="border rounded p-4 shadow-md w-[350px] h-[550px]"
           >
             <img
-              src="/project-image-placeholder.png"
+              src=""
               alt={project.projectTitle}
               className="w-full h-52 object-cover"
             />
@@ -70,9 +69,11 @@ const AdminProject = () => {
               <button onClick={() => handleDeleteProject(project._id)} className="bg-red-500 text-white font-semibold hover:bg-red-600 text-base py-2 px-3 rounded-full mr-2">
                 Delete
               </button>
-              <button className="bg-slate-700 text-white font-semibold hover:bg-slate-800 py-2 px-3 rounded-full">
-                Update
-              </button>
+              <Link href={`/editProject/${project._id}`}>
+                <button className="bg-slate-700 text-white font-semibold hover:bg-slate-800 py-2 px-3 rounded-full">
+                  Update
+                </button>
+              </Link>
             </div>
           </div>
         ))}
