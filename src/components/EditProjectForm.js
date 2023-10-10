@@ -1,12 +1,58 @@
+import { useState } from "react"
+import { useRouter } from 'next/router';
 import Link from "next/link"
 
-export default function EditProjectForm() {
+export default function EditProjectForm(props) {
+  const router = useRouter()
+
+  const [formData, setFormData] = useState({
+    projectTitle: props.project.projectTitle || '',
+    projectCategory: props.project.projectCategory || '',
+    projectDescription: props.project.projectDescription || '',
+    projectTags: props.project.projectTags || '',
+    uploadVideo: '',
+    uploadImage: '',
+  });
+
+  // Fungsi untuk menangani perubahan input
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Lakukan logika untuk mengirim data yang diperbarui, misalnya dengan fetch
+    fetch(`/api/project/${props.project._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          router.push('/dashboard');
+        } else {
+          console.error('Error updating project');
+        }
+      })
+      .catch((error) => {
+        console.error('Error updating project:', error);
+      });
+  };
+
+
   return (
     <div className="mx-auto my-10">
-      <h1 className="text-4xl text-center text-white font-bold">Add Project</h1>
+      <h1 className="text-4xl text-center text-white font-bold">Edit Project</h1>
       <div className="mx-auto mt-2 w-16 border-t-2 border-green-300"></div>
       <div className="bg-white rounded p-8 mt-8 w-1/2 mx-auto">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="projectTitle"></label>
             <input
@@ -15,6 +61,8 @@ export default function EditProjectForm() {
               name="projectTitle"
               className="border border-gray-300 rounded w-full py-2 px-3"
               placeholder="Enter project title"
+              value={formData.projectTitle}
+              onChange={handleInputChange}
             />
           </div>
           <div className="mb-4">
@@ -25,6 +73,8 @@ export default function EditProjectForm() {
               name="projectCategory"
               className="border border-gray-300 rounded w-full py-2 px-3"
               placeholder="Enter project category"
+              value={formData.projectCategory}
+              onChange={handleInputChange}
             />
           </div>
           <div className="mb-4">
@@ -34,6 +84,9 @@ export default function EditProjectForm() {
               name="projectDescription"
               className="border bg-gray-100 border-gray-300 rounded w-full py-2 px-3 h-32 resize-none"
               placeholder="Enter project description"
+              value={formData.projectDescription}
+              onChange={handleInputChange}
+
             ></textarea>
           </div>
           <div className="mb-4">
@@ -44,6 +97,8 @@ export default function EditProjectForm() {
               name="projectTags"
               className="border border-gray-300 rounded w-full py-2 px-3"
               placeholder="Enter project tags (comma separated)"
+              value={formData.projectTags}
+              onChange={handleInputChange}
             />
           </div>
           <div className="mb-4">
@@ -54,6 +109,7 @@ export default function EditProjectForm() {
               name="uploadVideo"
               accept="video/*"
               className="border border-gray-300 rounded w-full py-2 px-3"
+              onChange={handleInputChange}
             />
           </div>
           <div className="mb-4">
@@ -64,6 +120,7 @@ export default function EditProjectForm() {
               name="uploadImage"
               accept="image/*"
               className="border border-gray-300 rounded w-full py-2 px-3"
+              onChange={handleInputChange}
             />
           </div>
           <div className="flex justify-end">
