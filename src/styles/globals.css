@@ -9,3 +9,7 @@ input {
 label {
   @apply block text-gray-600 font-semibold mb-2;
 }
+
+.form-bg {
+  @apply shadow-lg p-5 rounded-lg border-t-4 border-zinc-400 bg-zinc-800;
+}
