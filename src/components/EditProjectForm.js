@@ -54,7 +54,7 @@ export default function EditProjectForm(props) {
       <div className="bg-white rounded p-8 mt-8 w-1/2 mx-auto">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="projectTitle"></label>
+            <label htmlFor="projectTitle">Project Title</label>
             <input
               type="text"
               id="projectTitle"
