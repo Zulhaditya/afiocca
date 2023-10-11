@@ -45,9 +45,9 @@ const AdminProject = () => {
           🗃️&nbsp;New Project
         </button>
       </Link>
-      <Link href="/resume">
+      <Link href="/edit-resume">
         <button className="mt-4 bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded">
-          📃&nbsp;Update Resume
+          📃&nbsp;Edit Resume
         </button>
       </Link>
 
