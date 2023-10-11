@@ -5,7 +5,8 @@ const projectSchema = new mongoose.Schema({
   projectCategory: String,
   projectDescription: String,
   projectTags: [String],
-  uploadVideo: String,
+  projectLink: String,
+  projectFeature: [String],
   uploadImage: String
 })
 

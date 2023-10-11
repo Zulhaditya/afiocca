@@ -12,7 +12,8 @@ export default async function handler(req, res) {
           projectCategory,
           projectDescription,
           projectTags,
-          uploadVideo,
+          projectLink,
+          projectFeature,
           uploadImage
         } = req.body
 
@@ -21,7 +22,8 @@ export default async function handler(req, res) {
           projectCategory,
           projectDescription,
           projectTags,
-          uploadVideo,
+          projectLink,
+          projectFeature,
           uploadImage
         })
 

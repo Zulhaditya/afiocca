@@ -10,11 +10,11 @@ export default function EditProjectForm(props) {
     projectCategory: props.project.projectCategory || '',
     projectDescription: props.project.projectDescription || '',
     projectTags: props.project.projectTags || '',
-    uploadVideo: '',
+    projectLink: props.project.projectLink || '',
+    projectFeature: props.project.projectFeature || '',
     uploadImage: '',
   });
 
-  // Fungsi untuk menangani perubahan input
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -26,7 +26,6 @@ export default function EditProjectForm(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Lakukan logika untuk mengirim data yang diperbarui, misalnya dengan fetch
     fetch(`/api/project/${props.project._id}`, {
       method: 'PUT',
       headers: {
@@ -102,15 +101,28 @@ export default function EditProjectForm(props) {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="uploadVideo">Upload Video</label>
+            <label htmlFor="projectLink">Project Link</label>
             <input
-              type="file"
-              id="uploadVideo"
-              name="uploadVideo"
-              accept="video/*"
+              type="text"
+              id="projectLink"
+              name="projectLink"
               className="border border-gray-300 rounded w-full py-2 px-3"
+              placeholder="Enter project link"
+              value={formData.projectLink}
               onChange={handleInputChange}
             />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="projectFeature">Key Feature</label>
+            <textarea
+              id="projectFeature"
+              name="projectFeature"
+              className="border bg-gray-100 border-gray-300 rounded w-full py-2 px-3 h-32 resize-none"
+              placeholder="Enter project key feature (comma separated)"
+              value={formData.projectFeature}
+              onChange={handleInputChange}
+
+            ></textarea>
           </div>
           <div className="mb-4">
             <label htmlFor="uploadImage">Upload Image</label>

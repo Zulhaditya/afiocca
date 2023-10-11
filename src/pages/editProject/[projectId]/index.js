@@ -8,18 +8,15 @@ export default function EditProject() {
   const [projectData, setProjectData] = useState(null);
 
   useEffect(() => {
-    // Pastikan projectId ada sebelum melakukan pengambilan data proyek
     if (!projectId) {
       return;
     }
 
-    // Lakukan pengambilan data proyek berdasarkan projectId
     fetch(`/api/project/${projectId}`, {
       method: 'GET',
     })
       .then((response) => response.json())
       .then((data) => {
-        // Set data proyek ke dalam state
         setProjectData(data);
       })
       .catch((error) => {
@@ -27,7 +24,6 @@ export default function EditProject() {
       });
   }, [projectId]);
 
-  // Tampilkan pesan loading jika data masih diambil
   if (!projectData) {
     return <div>Loading...</div>;
   }

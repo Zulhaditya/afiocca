@@ -40,7 +40,8 @@ export default async function handler(req, res) {
           projectCategory,
           projectDescription,
           projectTags,
-          uploadVideo,
+          projectLink,
+          projectFeature,
           uploadImage,
         } = req.body
 
@@ -54,7 +55,8 @@ export default async function handler(req, res) {
         existingProject.projectCategory = projectCategory
         existingProject.projectDescription = projectDescription
         existingProject.projectTags = projectTags
-        existingProject.uploadVideo = uploadVideo
+        existingProject.projectLink = projectLink
+        existingProject.projectFeature = projectFeature
         existingProject.uploadImage = uploadImage
 
         await existingProject.save()

@@ -10,7 +10,8 @@ const AddProject = () => {
     projectCategory: "",
     projectDescription: "",
     projectTags: "",
-    uploadVideo: "",
+    projectLink: "",
+    projectFeature: "",
     uploadImage: ""
   })
 
@@ -54,10 +55,10 @@ const AddProject = () => {
     <div className="mx-auto my-10">
       <h1 className="text-4xl text-center text-white font-bold">Add Project</h1>
       <div className="mx-auto mt-2 w-16 border-t-2 border-green-300"></div>
-      <div className="bg-white rounded p-8 mt-8 w-1/2 mx-auto">
+      <div className="form-bg p-8 mt-8 w-1/2 mx-auto">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="projectTitle">Project Title</label>
+            <label htmlFor="projectTitle" className="text-gray-200">Project Title</label>
             <input
               type="text"
               id="projectTitle"
@@ -68,7 +69,7 @@ const AddProject = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="projectCategory">Project Category</label>
+            <label htmlFor="projectCategory" className="text-gray-200">Project Category</label>
             <input
               type="text"
               id="projectCategory"
@@ -79,7 +80,7 @@ const AddProject = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="projectDescription">Project Description</label>
+            <label htmlFor="projectDescription" className="text-gray-200">Project Description</label>
             <textarea
               id="projectDescription"
               name="projectDescription"
@@ -89,7 +90,7 @@ const AddProject = () => {
             ></textarea>
           </div>
           <div className="mb-4">
-            <label htmlFor="projectTags">Tags</label>
+            <label htmlFor="projectTags" className="text-gray-200">Tags</label>
             <input
               type="text"
               id="projectTags"
@@ -100,18 +101,28 @@ const AddProject = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="uploadVideo">Upload Video</label>
+            <label htmlFor="projectLink" className="text-gray-200">Project Link</label>
             <input
-              type="file"
-              id="uploadVideo"
-              name="uploadVideo"
-              accept="video/*"
-              onChange={handleInputChange}
+              type="text"
+              id="projectLink"
+              name="projectLink"
               className="border border-gray-300 rounded w-full py-2 px-3"
+              placeholder="Enter project Link"
+              onChange={handleInputChange}
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="uploadImage">Upload Image</label>
+            <label htmlFor="projectFeature" className="text-gray-200">Key Feature</label>
+            <textarea
+              id="projectFeature"
+              name="projectFeature"
+              className="border bg-gray-100 border-gray-300 rounded w-full py-2 px-3 h-32 resize-none"
+              placeholder="Enter project key feature (comma separated)"
+              onChange={handleInputChange}
+            ></textarea>
+          </div>
+          <div className="mb-4">
+            <label htmlFor="uploadImage" className="text-gray-200">Upload Image</label>
             <input
               type="file"
               id="uploadImage"
@@ -125,14 +136,14 @@ const AddProject = () => {
             <Link href="/dashboard">
               <button
                 type="button"
-                className="bg-gray-400 text-white py-2 px-4 rounded-full mr-2"
+                className="bg-gray-600 text-white py-2 px-4 rounded-full mr-2"
               >
                 Back
               </button>
             </Link>
             <button
               type="submit"
-              className="bg-green-500 font-bold text-white py-2 px-4 rounded-full"
+              className="bg-cyan-500 font-bold text-white py-2 px-4 rounded-full"
             >
               Submit
             </button>

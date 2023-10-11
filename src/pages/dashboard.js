@@ -55,7 +55,7 @@ const AdminProject = () => {
         {projects.map((project) => (
           <div
             key={project._id}
-            className="border rounded p-4 shadow-md w-[350px] h-[550px]"
+            className="border rounded p-4 shadow-md w-[350px] h-[450px]"
           >
             <img
               src=""
@@ -64,7 +64,6 @@ const AdminProject = () => {
             />
             <h2 className="text-lg font-semibold mt-2">{project.projectTitle}</h2>
             <p className="text-sm text-gray-500">{project.projectCategory}</p>
-            <p className="mt-2 text-sm h-20">{project.projectDescription}</p>
             <div className="mt-4 flex justify-center">
               <button onClick={() => handleDeleteProject(project._id)} className="bg-red-500 text-white font-semibold hover:bg-red-600 text-base py-2 px-3 rounded-full mr-2">
                 Delete
