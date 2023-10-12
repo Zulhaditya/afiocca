@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 function EditResume() {
   const [resumeData, setResumeData] = useState([]);
+  const [updatedData, setUpdatedData] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,6 +40,32 @@ function EditResume() {
     }
   };
 
+  const handleUpdate = async (section, index) => {
+    try {
+      const response = await fetch(`/api/resume/update/${section}/${index}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData), // Kirim data yang diperbarui
+      });
+
+      if (response.status === 200) {
+        alert('Successfully updated data!');
+        window.location.reload(); // Reload halaman setelah berhasil pembaruan
+      } else {
+        console.error('Error updating data');
+      }
+    } catch (error) {
+      console.error('Error updating data:', error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUpdatedData({ ...updatedData, [name]: value });
+  };
+
   return (
     <div className="form-bg max-w-3xl mx-auto mt-10 my-10 p-4">
       <h1 className="text-2xl font-bold mb-4 text-white text-center">Edit Resume</h1>
@@ -65,17 +92,17 @@ function EditResume() {
                 <form>
                   <label className="text-gray-200">Degree</label>
                   <input className="form-resume"
-                    type="text" value={edu.degree} />
+                    type="text" name="degree" value={updatedData.degree || edu.degree} onChange={handleInputChange} />
                   <label className="text-gray-200 mt-4">Study</label>
-                  <input type="text" className="form-resume" value={edu.study} />
+                  <input type="text" className="form-resume" name="study" value={updatedData.study || edu.study} onChange={handleInputChange} />
                   <label className="text-gray-200 mt-4">Education Address</label>
-                  <input type="text" className='form-resume' value={edu.address} />
+                  <input type="text" className='form-resume' name="address" value={updatedData.address || edu.address} onChange={handleInputChange} />
                   <label className="text-gray-200 mt-4">Years</label>
-                  <input type="text" className='form-resume' value={edu.years} />
+                  <input type="text" className='form-resume' name="years" value={updatedData.years || edu.years} onChange={handleInputChange} />
                 </form>
                 <div className="flex justify-end gap-3 mt-4">
                   <button onClick={() => handleDelete("education", eduIndex)} className="bg-red-500 p-2 rounded font-semibold text-white mt-2" type="button">Delete</button>
-                  <button className="bg-gray-800 p-2 rounded font-semibold text-white mt-2" type="submit">Update</button>
+                  <button onClick={() => handleUpdate("education", eduIndex)} className="bg-gray-800 p-2 rounded font-semibold text-white mt-2" type="submit">Update</button>
                 </div>
               </div>
             ))}
