@@ -47,12 +47,12 @@ function EditResume() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedData), // Kirim data yang diperbarui
+        body: JSON.stringify(updatedData),
       });
 
       if (response.status === 200) {
         alert('Successfully updated data!');
-        window.location.reload(); // Reload halaman setelah berhasil pembaruan
+        window.location.reload();
       } else {
         console.error('Error updating data');
       }
@@ -119,17 +119,17 @@ function EditResume() {
               <div key={expIndex}>
                 <form>
                   <label className="text-gray-200">Job Desk</label>
-                  <input className="form-resume" type="text" value={exp.jobDesk} />
-                  <label className="text-gray-200 mt-4">Experience</label>
-                  <input type="text" className="form-resume" value={exp.years} />
+                  <input className="form-resume" type="text" value={updatedData.jobDesk || exp.jobDesk} onChange={handleInputChange} />
+                  <label className="text-gray-200 mt-4">Years</label>
+                  <input type="text" className="form-resume" value={updatedData.years || exp.years} onChange={handleInputChange} />
                   <label className="text-gray-200 mt-4">Company</label>
-                  <input type="text" className='form-resume' value={exp.company} />
+                  <input type="text" className='form-resume' value={updatedData.company || exp.company} onChange={handleInputChange} />
                   <label className="text-gray-200 mt-4">Technology Used</label>
-                  <input type="text" className='form-resume' value={exp.tech.join(', ')} />
+                  <input type="text" className='form-resume' value={updatedData.tech || exp.tech.join(', ')} onChange={handleInputChange} />
                 </form>
                 <div className="flex justify-end mt-4 gap-3">
                   <button onClick={() => handleDelete("experience", expIndex)} className="bg-red-500 p-2 rounded font-semibold text-white mt-2" type="submit">Delete</button>
-                  <button className="bg-gray-800 p-2 rounded font-semibold text-white mt-2" type="submit">Update</button>
+                  <button onClick={() => handleUpdate("experience", expIndex)} className="bg-gray-800 p-2 rounded font-semibold text-white mt-2" type="submit">Update</button>
                 </div>
               </div>
             ))}
@@ -146,15 +146,15 @@ function EditResume() {
               <div key={certIndex}>
                 <form>
                   <label className="text-gray-200">Title</label>
-                  <input className="form-resume" type="text" value={cert.title} />
+                  <input className="form-resume" type="text" value={updatedData.title || cert.title} onChange={handleInputChange} />
                   <label className="text-gray-200 mt-4">Certification Years</label>
-                  <input type="text" className="form-resume" value={cert.years} />
+                  <input type="text" className="form-resume" value={updatedData.years || cert.years} onChange={handleInputChange} />
                   <label className="text-gray-200 mt-4">Credential ID</label>
-                  <input type="text" className='form-resume' value={cert.credential} />
+                  <input type="text" className='form-resume' value={updatedData.credential || cert.credential} onChange={handleInputChange} />
                 </form>
                 <div className="flex justify-end mt-4 gap-3">
                   <button onClick={() => handleDelete("certificates", certIndex)} className="bg-red-500 p-2 rounded font-semibold text-white mt-2" type="submit">Delete</button>
-                  <button className="bg-gray-800 p-2 rounded font-semibold text-white mt-2" type="submit">Update</button>
+                  <button onClick={() => handleUpdate("certificates", certIndex)} className="bg-gray-800 p-2 rounded font-semibold text-white mt-2" type="submit">Update</button>
                 </div>
               </div>
             ))}
@@ -171,15 +171,15 @@ function EditResume() {
               <div key={skillIndex}>
                 <form>
                   <label className="text-gray-200">Skill</label>
-                  <input className="form-resume" type="text" value={skill.skillName} />
+                  <input className="form-resume" type="text" value={updatedData.skillName || skill.skillName} onChange={handleInputChange} />
                   <label className="text-gray-200 mt-4">Interest</label>
-                  <input type="text" className="form-resume" value={skill.interest} />
+                  <input type="text" className="form-resume" value={updatedData.interest || skill.interest} onChange={handleInputChange} />
                   <label className="text-gray-200 mt-4">Languages</label>
-                  <input type="text" className='form-resume' value={skill.languages.join(', ')} />
+                  <input type="text" className='form-resume' value={updatedData.languages || skill.languages.join(', ')} onChange={handleInputChange} />
                 </form>
                 <div className="flex justify-end mt-4 gap-3">
                   <button onClick={() => handleDelete("skills", skillIndex)} className="bg-red-500 p-2 rounded font-semibold text-white mt-2" type="submit">Delete</button>
-                  <button className="bg-gray-500 p-2 rounded font-semibold text-white mt-2" type="submit">Update</button>
+                  <button onClick={() => handleUpdate("skills", skillIndex)} className="bg-gray-500 p-2 rounded font-semibold text-white mt-2" type="submit">Update</button>
                 </div>
               </div>
             ))}
