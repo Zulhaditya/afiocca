@@ -3,18 +3,6 @@ import Link from 'next/link';
 
 function EditResume() {
   const [resumeData, setResumeData] = useState([]);
-  const [isEducationModalOpen, setEducationModalOpen] = useState(false);
-  const [isExperienceModalOpen, setExperienceModalOpen] = useState(false);
-  const [isCertificateModalOpen, setCertificateModalOpen] = useState(false);
-  const [isSkillModalOpen, setSkillModalOpen] = useState(false);
-
-
-  const [newEducation, setNewEducation] = useState({
-    degree: '',
-    study: '',
-    address: '',
-    years: '',
-  });
 
   useEffect(() => {
     fetch('/api/resume/')
@@ -22,14 +10,6 @@ function EditResume() {
       .then((data) => setResumeData(data))
       .catch((error) => console.error('Failed to fetch data:', error));
   }, []);
-
-  const handleAddEducation = () => {
-    setResumeData((prevData) => ({
-      ...prevData,
-      education: [...prevData.education, newEducation],
-    }));
-    setEducationModalOpen(false);
-  };
 
   return (
     <div className="form-bg max-w-3xl mx-auto mt-10 my-10 p-4">
@@ -49,34 +29,6 @@ function EditResume() {
 
       {/* Education Section */}
       <div className="mb-7 bg-zinc-700 p-7 rounded">
-        <div className="flex justify-center">
-          <button
-            className="bg-green-500 p-2 rounded font-semibold text-white mt-2"
-            onClick={() => setEducationModalOpen(true)}
-          >
-            Add Education
-          </button>
-        </div>
-        {isEducationModalOpen && (
-          <div className="modal mt-7">
-            <div className="modal-content">
-              <form>
-                <label className="text-gray-200">Degree</label>
-                <input className="form-resume" type="text" />
-                <label className="text-gray-200 mt-4">Study</label>
-                <input type="text" className="form-resume" />
-                <label className="text-gray-200 mt-4">Education Address</label>
-                <input type="text" className='form-resume' />
-                <label className="text-gray-200 mt-4">Years</label>
-                <input type="text" className='form-resume' />
-                <div className="mt-7 flex justify-center gap-3">
-                  <button onClick={handleAddEducation} className="bg-gray-800 px-3 py-2 rounded font-semibold text-white mt-2">Submit</button>
-                  <button className="bg-red-500 p-2 rounded font-semibold px-3 py-2 text-white mt-2" onClick={() => setEducationModalOpen(false)}>Close</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
         <h2 className="text-xl text-white font-semibold mb-2">Education</h2>
         {resumeData.map((resume, index) => (
           <div key={index}>
@@ -105,34 +57,6 @@ function EditResume() {
 
       {/* Experience Section */}
       <div className="mb-7 bg-zinc-600 p-7 rounded">
-        <div className="flex justify-center">
-          <button
-            className="bg-green-500 p-2 rounded font-semibold text-white mt-2"
-            onClick={() => setExperienceModalOpen(true)}
-          >
-            Add Experience
-          </button>
-        </div>
-        {isExperienceModalOpen && (
-          <div className="modal mt-7">
-            <div className="modal-content">
-              <form>
-                <label className="text-gray-200">Job Desk</label>
-                <input className="form-resume" type="text" />
-                <label className="text-gray-200 mt-4">Experience</label>
-                <input type="text" className="form-resume" />
-                <label className="text-gray-200 mt-4">Company</label>
-                <input type="text" className='form-resume' />
-                <label className="text-gray-200 mt-4">Technology Used</label>
-                <input type="text" className='form-resume' />
-                <div className="mt-7 flex justify-center gap-3">
-                  <button onClick={handleAddEducation} className="bg-gray-800 px-3 py-2 rounded font-semibold text-white mt-2">Submit</button>
-                  <button className="bg-red-500 p-2 rounded font-semibold px-3 py-2 text-white mt-2" onClick={() => setExperienceModalOpen(false)}>Close</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
         <h2 className="text-xl text-white font-semibold mb-2">Experience</h2>
         {resumeData.map((resume, index) => (
           <div key={index} className="my-5">
@@ -160,32 +84,6 @@ function EditResume() {
 
       {/* Certificates Section */}
       <div className="mb-7 bg-zinc-700 p-7 rounded">
-        <div className="flex justify-center">
-          <button
-            className="bg-green-500 p-2 rounded font-semibold text-white mt-2"
-            onClick={() => setCertificateModalOpen(true)}
-          >
-            Add Certificates
-          </button>
-        </div>
-        {isCertificateModalOpen && (
-          <div className="modal mt-7">
-            <div className="modal-content">
-              <form>
-                <label className="text-gray-200">Title</label>
-                <input className="form-resume" type="text" />
-                <label className="text-gray-200 mt-4">Certification Years</label>
-                <input type="text" className="form-resume" />
-                <label className="text-gray-200 mt-4">Credential ID</label>
-                <input type="text" className='form-resume' />
-                <div className="mt-7 flex justify-center gap-3">
-                  <button onClick={handleAddEducation} className="bg-gray-800 px-3 py-2 rounded font-semibold text-white mt-2">Submit</button>
-                  <button className="bg-red-500 p-2 rounded font-semibold px-3 py-2 text-white mt-2" onClick={() => setCertificateModalOpen(false)}>Close</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
         <h2 className="text-xl text-white font-semibold mb-2">Certificates</h2>
         {resumeData.map((resume, index) => (
           <div key={index} className="my-5">
@@ -211,32 +109,6 @@ function EditResume() {
 
       {/* Skills Section */}
       <div className="mb-7 bg-zinc-600 p-7 rounded">
-        <div className="flex justify-center">
-          <button
-            className="bg-green-500 p-2 rounded font-semibold text-white mt-2"
-            onClick={() => setSkillModalOpen(true)}
-          >
-            Add Skills
-          </button>
-        </div>
-        {isSkillModalOpen && (
-          <div className="modal mt-7">
-            <div className="modal-content">
-              <form>
-                <label className="text-gray-200">Skill</label>
-                <input className="form-resume" type="text" />
-                <label className="text-gray-200 mt-4">Interest</label>
-                <input type="text" className="form-resume" />
-                <label className="text-gray-200 mt-4">Languages</label>
-                <input type="text" className='form-resume' />
-                <div className="mt-7 flex justify-center gap-3">
-                  <button onClick={handleAddEducation} className="bg-gray-800 px-3 py-2 rounded font-semibold text-white mt-2">Submit</button>
-                  <button className="bg-red-500 p-2 rounded font-semibold px-3 py-2 text-white mt-2" onClick={() => setSkillModalOpen(false)}>Close</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
         <h2 className="text-xl text-white font-semibold mb-2">Your Skills</h2>
         {resumeData.map((resume, index) => (
           <div key={index} className='my-5'>

@@ -12,24 +12,30 @@ export default async function handler(req, res) {
         break;
 
       case "POST":
-        try {
-          const newResumeData = req.body
+        const { section, data } = req.body;
 
-          // Buat instance Resume baru dari data yang diterima
-          const newResume = new Resume({
-            education: newResumeData.education,
-            experience: newResumeData.experience,
-            certificates: newResumeData.certificates,
-            skills: newResumeData.skills,
-          })
+        if (!section || !data) {
+          res.status(400).json({ message: "Bad Request" });
+          return;
+        }
 
-          // Simpan instance Resume baru ke database
-          await newResume.save()
+        const existingResume = await Resume.findOne(); // Mengambil dokumen pertama dalam koleksi
 
-          res.status(201).json(newResume);
-        } catch (error) {
-          console.error(error);
-          res.status(500).json({ message: 'Internal server error' });
+        if (!existingResume) {
+          res.status(404).json({ message: "Resume not found" });
+          return;
+        }
+
+        if (section === "education" || section === "experience" || section === "certificates" || section === "skills") {
+          // Tambahkan data ke bagian yang sesuai dalam dokumen
+          existingResume[section].push(data);
+
+          // Simpan perubahan ke dalam dokumen
+          await existingResume.save();
+
+          res.status(201).json({ success: true });
+        } else {
+          res.status(400).json({ message: "Invalid section" });
         }
         break;
 
