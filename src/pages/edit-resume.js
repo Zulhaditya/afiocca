@@ -5,11 +5,39 @@ function EditResume() {
   const [resumeData, setResumeData] = useState([]);
 
   useEffect(() => {
-    fetch('/api/resume/')
-      .then((response) => response.json())
-      .then((data) => setResumeData(data))
-      .catch((error) => console.error('Failed to fetch data:', error));
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/resume/');
+        if (response.ok) {
+          const data = await response.json();
+          setResumeData(data);
+        } else {
+          console.error('Error fetching resume data');
+        }
+      } catch (error) {
+        console.error('Error fetching resume data: ', error);
+      }
+    };
+
+    fetchData();
   }, []);
+
+  const handleDelete = async (section, index) => {
+    try {
+      const response = await fetch(`/api/resume/delete/${section}/${index}`, {
+        method: 'DELETE',
+      });
+
+      if (response.status === 200) {
+        alert("Succesfully deleted data!")
+        window.location.reload();
+      } else {
+        console.error('Error deleting data');
+      }
+    } catch (error) {
+      console.error('Error deleting data!', error);
+    }
+  };
 
   return (
     <div className="form-bg max-w-3xl mx-auto mt-10 my-10 p-4">
@@ -46,7 +74,7 @@ function EditResume() {
                   <input type="text" className='form-resume' value={edu.years} />
                 </form>
                 <div className="flex justify-end gap-3 mt-4">
-                  <button className="bg-red-500 p-2 rounded font-semibold text-white mt-2" type="submit">Delete</button>
+                  <button onClick={() => handleDelete("education", eduIndex)} className="bg-red-500 p-2 rounded font-semibold text-white mt-2" type="button">Delete</button>
                   <button className="bg-gray-800 p-2 rounded font-semibold text-white mt-2" type="submit">Update</button>
                 </div>
               </div>
@@ -73,7 +101,7 @@ function EditResume() {
                   <input type="text" className='form-resume' value={exp.tech.join(', ')} />
                 </form>
                 <div className="flex justify-end mt-4 gap-3">
-                  <button className="bg-red-500 p-2 rounded font-semibold text-white mt-2" type="submit">Delete</button>
+                  <button onClick={() => handleDelete("experience", expIndex)} className="bg-red-500 p-2 rounded font-semibold text-white mt-2" type="submit">Delete</button>
                   <button className="bg-gray-800 p-2 rounded font-semibold text-white mt-2" type="submit">Update</button>
                 </div>
               </div>
@@ -98,7 +126,7 @@ function EditResume() {
                   <input type="text" className='form-resume' value={cert.credential} />
                 </form>
                 <div className="flex justify-end mt-4 gap-3">
-                  <button className="bg-red-500 p-2 rounded font-semibold text-white mt-2" type="submit">Delete</button>
+                  <button onClick={() => handleDelete("certificates", certIndex)} className="bg-red-500 p-2 rounded font-semibold text-white mt-2" type="submit">Delete</button>
                   <button className="bg-gray-800 p-2 rounded font-semibold text-white mt-2" type="submit">Update</button>
                 </div>
               </div>
@@ -123,7 +151,7 @@ function EditResume() {
                   <input type="text" className='form-resume' value={skill.languages.join(', ')} />
                 </form>
                 <div className="flex justify-end mt-4 gap-3">
-                  <button className="bg-red-500 p-2 rounded font-semibold text-white mt-2" type="submit">Delete</button>
+                  <button onClick={() => handleDelete("skills", skillIndex)} className="bg-red-500 p-2 rounded font-semibold text-white mt-2" type="submit">Delete</button>
                   <button className="bg-gray-500 p-2 rounded font-semibold text-white mt-2" type="submit">Update</button>
                 </div>
               </div>
