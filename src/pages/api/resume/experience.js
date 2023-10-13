@@ -2,26 +2,40 @@ import { connectMongoDB } from '@util/mongodb';
 import Resume from '@models/resume';
 
 export default async function handler(req, res) {
-  await connectMongoDB()
+  await connectMongoDB();
 
-  if (req.method === "POST") {
-    try {
-      const { jobDesk, years, company, address, description } = req.body;
+  switch (req.method) {
+    case "GET":
+      try {
+        const resume = await Resume.findOne();
 
-      const newExperience = { jobDesk, years, company, address, description };
+        if (!resume) {
+          return res.status(404).json({ error: "Resume not found" });
+        }
 
-      // Ambil dokumen resume
-      const resume = await Resume.findOne();
+        const experience = resume.experience;
+        res.status(200).json({ experience });
+      } catch (error) {
+        res.status(500).json({ error: "Internal server Error" });
+      }
+      break;
 
-      // Tambahkan data pendidikan baru ke array 'education'
-      resume.experience.push(newExperience);
+    case "POST":
+      try {
+        const { jobDesk, years, company, address, description } = req.body;
+        const newExperience = { jobDesk, years, company, address, description };
 
-      // Simpan dokumen resume yang telah diperbarui
-      await resume.save();
+        const resume = await Resume.findOne();
+        resume.experience.push(newExperience);
+        await resume.save();
 
-      res.status(200).json({ message: "Data Pendidikan berhasil ditambahkan" });
-    } catch (error) {
-      res.status(500).json({ error: "Kesalahan Server Internal" });
-    }
+        res.status(200).json({ message: "Succesfully added new experience" });
+      } catch (error) {
+        res.status(500).json({ error: "Internal server error" });
+      }
+      break;
+
+    default:
+      res.status(405).json({ error: "Metode not allowed" });
   }
 }
