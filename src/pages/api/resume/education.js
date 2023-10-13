@@ -2,26 +2,40 @@ import { connectMongoDB } from '@util/mongodb';
 import Resume from '@models/resume';
 
 export default async function handler(req, res) {
-  await connectMongoDB()
+  await connectMongoDB();
 
-  if (req.method === "POST") {
-    try {
-      const { degree, study, address, years, description } = req.body;
+  switch (req.method) {
+    case "GET":
+      try {
+        const resume = await Resume.findOne();
 
-      const newEducation = { degree, study, address, years, description };
+        if (!resume) {
+          return res.status(404).json({ error: "Resume not found" });
+        }
 
-      // Ambil dokumen resume
-      const resume = await Resume.findOne();
+        const education = resume.education;
+        res.status(200).json({ education });
+      } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+      break;
 
-      // Tambahkan data pendidikan baru ke array 'education'
-      resume.education.push(newEducation);
+    case "POST":
+      try {
+        const { degree, study, address, years, description } = req.body;
+        const newEducation = { degree, study, address, years, description };
 
-      // Simpan dokumen resume yang telah diperbarui
-      await resume.save();
+        const resume = await Resume.findOne();
+        resume.education.push(newEducation);
+        await resume.save();
 
-      res.status(200).json({ message: "Data Pendidikan berhasil ditambahkan" });
-    } catch (error) {
-      res.status(500).json({ error: "Kesalahan Server Internal" });
-    }
+        res.status(200).json({ message: "Data Pendidikan berhasil ditambahkan" });
+      } catch (error) {
+        res.status(500).json({ error: "Kesalahan Server Internal" });
+      }
+      break;
+
+    default:
+      res.status(405).json({ error: "Metode HTTP tidak diizinkan" });
   }
 }
