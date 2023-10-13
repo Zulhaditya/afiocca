@@ -1,14 +1,11 @@
 import AnimatedText from "@/components/AnimatedText";
 import Layout from "@/components/Layout";
-import { motion } from "framer-motion";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import TransitionEffect from "@/components/TransitionEffect";
-import proj2 from "../../public/images/projects/nft-collection-website-cover-image.jpg";
 
-const FramerImage = motion(Image);
 
 const Project = ({ projectTitle, projectCategory, uploadImage, projectLink, projectId }) => {
   return (
@@ -28,15 +25,11 @@ const Project = ({ projectTitle, projectCategory, uploadImage, projectLink, proj
         target={"_blank"}
         className="w-full cursor-pointer overflow-hidden rounded-lg"
       >
-        <FramerImage
+        <Image
           src={uploadImage}
           alt={projectTitle}
-          className="h-auto w-full"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.2 }}
-          sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw"
+          width={700}
+          height={0}
         />
       </Link>
       <div className="mt-4 flex w-full flex-col items-start justify-between">
@@ -108,7 +101,7 @@ export default function Projects() {
                   projectId={project._id}
                   projectCategory={project.projectCategory}
                   projectTitle={project.projectTitle}
-                  uploadImage={proj2}
+                  uploadImage={project.uploadImage}
                   projectLink={project.projectLink}
                 />
               </div>

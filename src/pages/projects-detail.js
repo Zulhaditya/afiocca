@@ -46,7 +46,9 @@ export default function ProjectDetail() {
         </h1>
         <p className="text-gray-400 mb-4 text-center">{project.projectCategory}</p>
         <Image
-          src={proj1}
+          src={project.uploadImage}
+          width={600}
+          height={0}
           alt={project.projectTitle}
           className="mb-4 rounded-lg mx-auto"
         />

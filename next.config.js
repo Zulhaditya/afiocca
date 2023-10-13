@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   reactStrictMode: true,
   async rewrites() {
@@ -8,6 +9,9 @@ const nextConfig = {
         destination: '/projects-detail',
       }
     ]
+  },
+  images: {
+    domains: ['firebasestorage.googleapis.com'],
   }
 }
 
