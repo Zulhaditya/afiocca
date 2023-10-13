@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useRouter } from 'next/router';
 import Link from "next/link"
+import TransitionEffect from "./TransitionEffect";
 
 export default function EditProjectForm(props) {
   const router = useRouter()
@@ -48,6 +49,7 @@ export default function EditProjectForm(props) {
 
   return (
     <div className="mx-auto my-10">
+      <TransitionEffect />
       <h1 className="text-4xl text-center text-white font-bold">Edit Project</h1>
       <div className="mx-auto mt-2 w-16 border-t-2 border-green-300"></div>
       <div className="bg-white rounded p-8 mt-8 w-1/2 mx-auto">

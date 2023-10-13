@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
 import { storage } from '@util/firebase';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+import TransitionEffect from '@/components/TransitionEffect';
+import Head from 'next/head';
 
 const AddProject = () => {
   const router = useRouter();
@@ -81,105 +83,115 @@ const AddProject = () => {
   };
 
   return (
-    <div className="mx-auto my-10">
-      <h1 className="text-4xl text-center text-white font-bold">Add Project</h1>
-      <div className="mx-auto mt-2 w-16 border-t-2 border-green-300"></div>
-      <div className="form-bg p-8 mt-8 w-1/2 mx-auto">
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="projectTitle" className="text-gray-200">Project Title</label>
-            <input
-              type="text"
-              id="projectTitle"
-              name="projectTitle"
-              className="border border-gray-300 rounded w-full py-2 px-3"
-              placeholder="Enter project title"
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="projectCategory" className="text-gray-200">Project Category</label>
-            <input
-              type="text"
-              id="projectCategory"
-              name="projectCategory"
-              className="border border-gray-300 rounded w-full py-2 px-3"
-              placeholder="Enter project category"
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="projectDescription" className="text-gray-200">Project Description</label>
-            <textarea
-              id="projectDescription"
-              name="projectDescription"
-              className="border bg-gray-100 border-gray-300 rounded w-full py-2 px-3 h-32 resize-none"
-              placeholder="Enter project description"
-              onChange={handleInputChange}
-            ></textarea>
-          </div>
-          <div className="mb-4">
-            <label htmlFor="projectTags" className="text-gray-200">Tags</label>
-            <input
-              type="text"
-              id="projectTags"
-              name="projectTags"
-              className="border border-gray-300 rounded w-full py-2 px-3"
-              placeholder="Enter project tags (comma separated)"
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="projectLink" className="text-gray-200">Project Link</label>
-            <input
-              type="text"
-              id="projectLink"
-              name="projectLink"
-              className="border border-gray-300 rounded w-full py-2 px-3"
-              placeholder="Enter project Link"
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="projectFeature" className="text-gray-200">Key Feature</label>
-            <textarea
-              id="projectFeature"
-              name="projectFeature"
-              className="border bg-gray-100 border-gray-300 rounded w-full py-2 px-3 h-32 resize-none"
-              placeholder="Enter project key feature (comma separated)"
-              onChange={handleInputChange}
-            ></textarea>
-          </div>
-          <div className="mb-4">
-            <label htmlFor="uploadImage" className="text-gray-200">Upload Image</label>
-            <input
-              type="file"
-              id="uploadImage"
-              name="uploadImage"
-              accept="image/*"
-              onChange={handleInputChange}
-              className="border border-gray-300 rounded w-full py-2 px-3"
-            />
-          </div>
-          <div className="flex justify-end">
-            <Link href="/dashboard">
+    <>
+      <Head>
+        <title>Add Project</title>
+        <meta
+          name="description"
+          content="Discover the latest webapp projects created by Afiocca. Browse software engineering articles and tutorials for tips on creating your own portfolio."
+        />
+      </Head>
+      <div className="mx-auto my-10">
+        <TransitionEffect />
+        <h1 className="text-4xl text-center text-white font-bold">Add Project</h1>
+        <div className="mx-auto mt-2 w-16 border-t-2 border-green-300"></div>
+        <div className="form-bg p-8 mt-8 w-1/2 mx-auto">
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label htmlFor="projectTitle" className="text-gray-200">Project Title</label>
+              <input
+                type="text"
+                id="projectTitle"
+                name="projectTitle"
+                className="border border-gray-300 rounded w-full py-2 px-3"
+                placeholder="Enter project title"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="projectCategory" className="text-gray-200">Project Category</label>
+              <input
+                type="text"
+                id="projectCategory"
+                name="projectCategory"
+                className="border border-gray-300 rounded w-full py-2 px-3"
+                placeholder="Enter project category"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="projectDescription" className="text-gray-200">Project Description</label>
+              <textarea
+                id="projectDescription"
+                name="projectDescription"
+                className="border bg-gray-100 border-gray-300 rounded w-full py-2 px-3 h-32 resize-none"
+                placeholder="Enter project description"
+                onChange={handleInputChange}
+              ></textarea>
+            </div>
+            <div className="mb-4">
+              <label htmlFor="projectTags" className="text-gray-200">Tags</label>
+              <input
+                type="text"
+                id="projectTags"
+                name="projectTags"
+                className="border border-gray-300 rounded w-full py-2 px-3"
+                placeholder="Enter project tags (comma separated)"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="projectLink" className="text-gray-200">Project Link</label>
+              <input
+                type="text"
+                id="projectLink"
+                name="projectLink"
+                className="border border-gray-300 rounded w-full py-2 px-3"
+                placeholder="Enter project Link"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="projectFeature" className="text-gray-200">Key Feature</label>
+              <textarea
+                id="projectFeature"
+                name="projectFeature"
+                className="border bg-gray-100 border-gray-300 rounded w-full py-2 px-3 h-32 resize-none"
+                placeholder="Enter project key feature (comma separated)"
+                onChange={handleInputChange}
+              ></textarea>
+            </div>
+            <div className="mb-4">
+              <label htmlFor="uploadImage" className="text-gray-200">Upload Image</label>
+              <input
+                type="file"
+                id="uploadImage"
+                name="uploadImage"
+                accept="image/*"
+                onChange={handleInputChange}
+                className="border border-gray-300 rounded w-full py-2 px-3"
+              />
+            </div>
+            <div className="flex justify-end">
+              <Link href="/dashboard">
+                <button
+                  type="button"
+                  className="bg-gray-600 text-white py-2 px-4 rounded-full mr-2"
+                >
+                  Back
+                </button>
+              </Link>
               <button
-                type="button"
-                className="bg-gray-600 text-white py-2 px-4 rounded-full mr-2"
+                type="submit"
+                className="bg-cyan-500 font-bold text-white py-2 px-4 rounded-full"
               >
-                Back
+                Submit
               </button>
-            </Link>
-            <button
-              type="submit"
-              className="bg-cyan-500 font-bold text-white py-2 px-4 rounded-full"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

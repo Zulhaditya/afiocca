@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import TransitionEffect from "@/components/TransitionEffect";
 import { useState, useEffect } from "react";
-import proj1 from "../../public/images/projects/portfolio-cover-image.jpg";
 
 export default function ProjectDetail() {
   const router = useRouter();

@@ -19,7 +19,7 @@ const Footer = () => {
             target="_blank"
             className="underline underline-offset-2"
           >
-            Affioca
+            Afiocca
           </Link>
         </div>
 

@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import TransitionEffect from "@/components/TransitionEffect";
 
-
 const Project = ({ projectTitle, projectCategory, uploadImage, projectLink, projectId }) => {
   return (
     <article
@@ -80,8 +79,7 @@ export default function Projects() {
         <title>Projects</title>
         <meta
           name="description"
-          content="Discover the latest webapp projects created by CodeBucks, a Next.js developer with
-        expertise in React.js and full-stack development. Browse software engineering articles and tutorials for tips on creating your own portfolio."
+          content="Discover the latest webapp projects created by Afiocca. Browse software engineering articles and tutorials for tips on creating your own portfolio."
         />
       </Head>
 
