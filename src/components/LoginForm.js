@@ -1,9 +1,12 @@
 import { useState } from "react"
+import { useRouter } from "next/router"
 
 export default function LoginForm() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+
+  const router = useRouter()
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -18,7 +21,7 @@ export default function LoginForm() {
       })
 
       if (response.status === 200) {
-        window.location.href = '/dashboard'
+        router.push('/dashboard')
       } else {
         const data = await response.json()
         setError(data.message)

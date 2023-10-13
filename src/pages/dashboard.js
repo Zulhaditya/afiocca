@@ -1,3 +1,4 @@
+import TransitionEffect from '@/components/TransitionEffect';
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
 
@@ -37,6 +38,7 @@ const AdminProject = () => {
 
   return (
     <div className="text-center my-10 mx-auto w-[1200px]">
+      <TransitionEffect />
       <h1 className="text-4xl font-bold text-white">Dashboard</h1>
       <div className="mx-auto mt-2 w-10 border-t-2 border-green-300"></div>
       <p className="my-4 text-white">Admin dashboard page to manage your projects and resumes.</p>
