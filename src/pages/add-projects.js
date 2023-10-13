@@ -2,54 +2,83 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
+import { storage } from '@util/firebase';
+import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 
 const AddProject = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    projectTitle: "",
-    projectCategory: "",
-    projectDescription: "",
-    projectTags: "",
-    projectLink: "",
-    projectFeature: "",
-    uploadImage: ""
-  })
+    projectTitle: '',
+    projectCategory: '',
+    projectDescription: '',
+    projectTags: '',
+    projectLink: '',
+    projectFeature: '',
+    uploadImage: '',
+  });
+
+  const [imgUrl, setImgUrl] = useState(null)
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      const response = await fetch("/api/project/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData)
-      })
+      const fileInput = document.getElementById('uploadImage');
+      const file = fileInput.files[0];
 
-      if (response.status === 201) {
-        // if data successfuly send, do next/redirect
-        Swal.fire({
-          icon: "success",
-          title: "Success!",
-          text: "Project uploaded successfully.",
-        }).then(() => {
-          // Mengarahkan pengguna kembali ke halaman /dashboard
-          router.push("/dashboard");
-        });
-      } else {
-        // error handling
-        console.error("Failed to add project")
-      }
+      if (!file) return;
+
+      const storageRef = ref(storage, `projects/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on("state_changed",
+        (snapshot) => {
+          // const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          // setProgressPercent(progress);
+        },
+        (error) => {
+          alert(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setImgUrl(downloadURL);
+
+            const formDataWithImage = {
+              ...formData,
+              uploadImage: downloadURL,
+            };
+
+            fetch("/api/project/", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formDataWithImage),
+            }).then(async (response) => {
+              if (response.status === 201) {
+                Swal.fire({
+                  icon: "success",
+                  title: "Success!",
+                  text: "Project uploaded successfully.",
+                }).then(() => {
+                  router.push("/dashboard");
+                });
+              } else {
+                console.error("Failed to add project");
+              }
+            });
+          });
+        }
+      );
     } catch (error) {
-      console.error("Internal server error: ", error)
+      console.error("Internal server error: ", error);
     }
-  }
+  };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   return (
     <div className="mx-auto my-10">
