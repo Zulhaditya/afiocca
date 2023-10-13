@@ -6,9 +6,9 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     try {
-      const { degree, study, address, years } = req.body;
+      const { degree, study, address, years, description } = req.body;
 
-      const newEducation = { degree, study, address, years };
+      const newEducation = { degree, study, address, years, description };
 
       // Ambil dokumen resume
       const resume = await Resume.findOne();

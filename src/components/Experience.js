@@ -5,7 +5,7 @@ import {
 } from "framer-motion";
 import LiIcon from "./LiIcon";
 
-const Details = ({ position, company, companyLink, time, address, work }) => {
+const Details = ({ jobDesk, years, company, address, description }) => {
   const ref = useRef(null);
   return (
     <li
@@ -19,19 +19,18 @@ const Details = ({ position, company, companyLink, time, address, work }) => {
         transition={{ duration: 0.5, type: "spring" }}
       >
         <h3 className="capitalize font-bold text-2xl sm:text-xl xs:text-lg">
-          {position}{" "}
+          {jobDesk}{" "}
           <a
             className="capitalize text-primary dark:text-primaryDark"
-            href={companyLink}
             target={"_blank"}
           >
             @{company}
           </a>
         </h3>
         <span className="capitalize text-dark/75 font-medium dark:text-light/50 xs:text-sm">
-          {time} | {address}
+          {years} | {address}
         </span>
-        <p className="font-medium w-full md:text-sm"> {work}</p>
+        <p className="font-medium w-full md:text-sm"> {description}</p>
       </motion.div>
     </li>
   );
@@ -61,65 +60,59 @@ const Experience = () => {
         />
         <ul className="w-full flex flex-col items-start justify-between ml-4 xs:ml-2">
           <Details
-            position="Robotic Test Engineer"
+            jobDesk="Robotic Test Engineer"
             company="Redzone Robotics"
-            companyLink="https://google.com"
-            time="October 2022 - Present"
+            years="October 2022 - Present"
             address="Warrendale, PA."
-            work="Developing and implementing test plans, test cases, and test scripts to validate 
+            description="Developing and implementing test plans, test cases, and test scripts to validate 
             robotic system functionality and performance. Such as utilizing image processing techniques 
             to assess camera quality and optimize image capturein robotic applications. 
             Creating testing fixtures to accurately and productively test circuit boards, custom cables, and software."
           />
 
           <Details
-            position="Project Engineer"
+            jobDesk="Project Engineer"
             company="Richmond Engineering works"
-            companyLink="https://google.com"
-            time="September 2021 - October 2022"
+            years="September 2021 - October 2022"
             address="Robinson Township, PA."
-            work="Responsible for the electrical drawing design and quality assurance processes, ensuring all electrical 
+            description="Responsible for the electrical drawing design and quality assurance processes, ensuring all electrical 
             designs are up to code. Such as Panel Designs, MCCs, Switch Gears, Conduit layout, Cable sizing, AC and DC Drives."
           />
 
           <Details
-            position="Electrical Engineering Co-Op"
+            jobDesk="Electrical Engineering Co-Op"
             company="Conair group"
-            companyLink="https://google.com"
-            time="September 2019 - April 2021"
+            years="September 2019 - April 2021"
             address="Cranberry Township, PA."
-            work="Supervise New Product Development which includes: managing software development, communications 
+            description="Supervise New Product Development which includes: managing software development, communications 
             between systems, assembly process of products and electrical hardware design including Printed Circuit Board designs"
           />
 
           <Details
-            position="Robotic Engineer"
+            jobDesk="Robotic Engineer"
             company="Panacea.Ag"
-            companyLink="https://google.com"
-            time="April 2019 - September 2020"
+            years="April 2019 - September 2020"
             address="Pittsburgh, PA."
-            work="Team Lead for new product design for production and scalability of hardware unit and 
+            description="Team Lead for new product design for production and scalability of hardware unit and 
             Developed software stabilization and optimization for consumer use"
           />
 
           <Details
-            position="Team Lead"
+            jobDesk="Team Lead"
             company="X-Projects"
-            companyLink="https://google.com"
-            time="November 2018 - April 2019"
+            years="November 2018 - April 2019"
             address="University of Pittsburgh"
-            work="Fully Automated Farming Robot designed for weed removal, watering, seed planting, and soil testing,
+            description="Fully Automated Farming Robot designed for weed removal, watering, seed planting, and soil testing,
             Integrated 360˚ Lidar with hardware modifications to amplify and rectify UART signal communication, and
             Using C++ to develop a 2-Dimensional Tracking system for precision of movement with 360˚Lidar"
           />
 
           <Details
-            position="Lead Engineering Intern"
+            jobDesk="Lead Engineering Intern"
             company="Mansco Products Inc."
-            companyLink="https://google.com"
-            time="June 2018 - January 2019"
+            years="June 2018 - January 2019"
             address="Warminster, PA."
-            work="Developed advanced data analysis algorithm for curve fitting with graphical user interface using python, 
+            description="Developed advanced data analysis algorithm for curve fitting with graphical user interface using python, 
             to improve troubleshooting of user’s complications"
           />
 

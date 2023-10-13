@@ -8,13 +8,15 @@ const Resume = () => {
     study: "",
     address: "",
     years: "",
+    description: ""
   });
 
   const [experienceData, setExperienceData] = useState({
     jobDesk: "",
     years: "",
     company: "",
-    tech: [""],
+    address: "",
+    description: "",
   });
 
   const [certificatesData, setCertificatesData] = useState({
@@ -25,8 +27,6 @@ const Resume = () => {
 
   const [skillsData, setSkillsData] = useState({
     skillName: "",
-    interest: "",
-    languages: [""],
   });
 
   const handleInputChange = (e, section) => {
@@ -81,6 +81,7 @@ const Resume = () => {
           study: "",
           address: "",
           years: "",
+          description: "",
         });
         alert("Data education berhasil ditambahkan");
       } else {
@@ -111,7 +112,8 @@ const Resume = () => {
           jobDesk: "",
           years: "",
           company: "",
-          tech: "",
+          address: "",
+          description: "",
         });
         alert("Data experience berhasil ditambahkan");
       } else {
@@ -137,7 +139,6 @@ const Resume = () => {
       });
 
       if (response.ok) {
-        // Tangani keberhasilan, misalnya, reset bidang formulir atau tampilkan pesan sukses
         setCertificatesData({
           title: "",
           years: "",
@@ -167,15 +168,11 @@ const Resume = () => {
       });
 
       if (response.ok) {
-        // Tangani keberhasilan, misalnya, reset bidang formulir atau tampilkan pesan sukses
         setSkillsData({
           skillName: "",
-          interest: "",
-          languages: "",
         });
         alert("Data skills berhasil ditambahkan");
       } else {
-        // Tangani kesalahan, misalnya, tampilkan pesan kesalahan
         console.error("Kesalahan menambahkan data skill");
       }
     } catch (error) {
@@ -187,7 +184,17 @@ const Resume = () => {
     <div className="mx-auto w-1/2 my-10">
       <h1 className="text-4xl text-center font-bold text-white">Add Resume</h1>
       <div className="mx-auto mt-2 w-16 border-t-2 border-green-300"></div>
-      <div className="form-bg p-8 mt-8 grid grid-cols-2 grid-rows-2 gap-10">
+      <div className="flex justify-center mt-7">
+        <Link href="/edit-resume">
+          <button
+            type="button"
+            className="bg-gray-600 text-white font-semibold py-2 px-4 rounded-full mr-2"
+          >
+            Back
+          </button>
+        </Link>
+      </div>
+      <div className="form-bg p-8 mt-8 grid grid-cols-2 grid-rows-1 gap-10">
         <div>
           <h2 className="text-xl font-semibold text-cyan-200 mb-2">Education</h2>
           <div className="w-16 border-t-2 border-cyan-500 mb-4"></div>
@@ -240,6 +247,17 @@ const Resume = () => {
                 placeholder="Enter years of study"
               />
             </div>
+            <div className="mb-4">
+              <label htmlFor="description" className="text-gray-200">Description</label>
+              <textarea
+                id="description"
+                name="description"
+                className="border bg-gray-100 border-gray-300 rounded w-full py-2 px-3 h-32 resize-none"
+                placeholder="Enter education description"
+                value={educationData.description}
+                onChange={(e) => handleInputChange(e, "education")}
+              />
+            </div>
             <button
               type="submit"
               className="bg-cyan-500 font-bold text-white py-2 px-4 rounded-full"
@@ -289,15 +307,26 @@ const Resume = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="tech" className="block text-gray-200 font-semibold">Technology Used</label>
+              <label htmlFor="address" className="block text-gray-200 font-semibold">Address</label>
               <input
                 type="text"
-                id="tech"
-                name="tech"
-                value={experienceData.tech}
+                id="address"
+                name="address"
+                value={experienceData.address}
                 onChange={(e) => handleInputChange(e, "experience")}
                 className="border border-gray-300 rounded w-full py-2 px-3"
                 placeholder="Enter technology used"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="description" className="text-gray-200">Description</label>
+              <textarea
+                id="description"
+                name="description"
+                className="border bg-gray-100 border-gray-300 rounded w-full py-2 px-3 h-32 resize-none"
+                placeholder="Enter experience description"
+                value={experienceData.description}
+                onChange={(e) => handleInputChange(e, "experience")}
               />
             </div>
             <button
@@ -372,30 +401,6 @@ const Resume = () => {
                 placeholder="Enter your skills"
               />
             </div>
-            <div className="mb-4">
-              <label htmlFor="interest" className="block text-gray-200 font-semibold">Interests</label>
-              <input
-                type="text"
-                id="interest"
-                name="interest"
-                value={skillsData.interest}
-                onChange={(e) => handleInputChange(e, "skills")}
-                className="border border-gray-300 rounded w-full py-2 px-3"
-                placeholder="Enter your interests"
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="languages" className="block text-gray-200 font-semibold">Languages</label>
-              <input
-                type="text"
-                id="languages"
-                name="languages"
-                value={skillsData.languages}
-                onChange={(e) => handleInputChange(e, "skills")}
-                className="border border-gray-300 rounded w-full py-2 px-3"
-                placeholder="Enter languages"
-              />
-            </div>
             <button
               type="submit"
               className="bg-cyan-500 font-bold text-white py-2 px-4 rounded-full"
@@ -403,16 +408,6 @@ const Resume = () => {
               Submit
             </button>
           </form>
-          <div className="flex justify-end mt-7">
-            <Link href="/edit-resume">
-              <button
-                type="button"
-                className="bg-gray-600 text-white py-2 px-4 rounded-full mr-2"
-              >
-                Back
-              </button>
-            </Link>
-          </div>
         </div>
       </div>
     </div>

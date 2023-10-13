@@ -7,6 +7,7 @@ const resumeSchema = new mongoose.Schema({
       study: String,
       address: String,
       years: String,
+      description: String,
     }
   ],
   experience: [
@@ -14,7 +15,8 @@ const resumeSchema = new mongoose.Schema({
       jobDesk: String,
       years: String,
       company: String,
-      tech: [String]
+      address: String,
+      description: String,
     }
   ],
   certificates: [
@@ -27,8 +29,6 @@ const resumeSchema = new mongoose.Schema({
   skills: [
     {
       skillName: String,
-      interest: String,
-      languages: [String]
     }
   ],
 })

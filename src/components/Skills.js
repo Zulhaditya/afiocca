@@ -1,15 +1,15 @@
 import { motion } from "framer-motion";
-import React, { useRef } from "react";
-
+import React, { useRef, useState, useEffect } from "react";
 
 const Skill = ({ name, x, y }) => {
+
   const ref = useRef(null);
   return (
     <motion.div
       ref={ref}
       whileHover={{ scale: 1.05 }}
-      initial={{ x: 0, y: 0 }}
-      whileInView={{ x: x, y: y, transition: { duration: 1.5 } }}
+      initial={{ x, y }}
+      whileInView={{ x, y, transition: { duration: 1.5 } }}
       viewport={{ once: true }}
       className="cursor-pointer w-max origin-center absolute 
        font-semibold bg-dark text-light py-3 px-6 rounded-full dark:bg-light dark:text-dark
@@ -23,6 +23,20 @@ const Skill = ({ name, x, y }) => {
 
 const Skills = () => {
   const ref = useRef(null);
+  const [skills, setSkills] = useState([])
+
+  useEffect(() => {
+    // Fetch skills data from the server
+    fetch("/api/resume/skills")
+      .then((response) => response.json())
+      .then((data) => setSkills(data.skills))
+      .catch((error) => console.error("Error fetching skills:", error));
+  }, []);
+
+  function getRandomValue(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
   return (
     <>
       <h2 className="font-bold text-8xl mt-64 w-full text-center md:text-6xl md:mt-32">
@@ -43,17 +57,14 @@ const Skills = () => {
           Skills
         </motion.div>
 
-        <Skill name="Ansi C" x="-20vw" y="2vw" />
-        <Skill name="Lader Logic" x="-5vw" y="-10vw" />
-        <Skill name="Python" x="20vw" y="6vw" />
-        <Skill name="ROS2" x="0vw" y="12vw" />
-        <Skill name="C++" x="-20vw" y="-15vw" />
-        <Skill name="Onshape" x="15vw" y="-12vw" />
-        <Skill name="Soldering" x="-35vw" y="-5vw" />
-        <Skill name="Rslogix" x="32vw" y="-5vw" />
-        <Skill name="AutoCAD" x="0vw" y="-20vw" />
-        <Skill name="Eagle" x="-25vw" y="18vw" />
-        <Skill name="SolidWorks" x="28vw" y="18vw" />
+        {skills.map((skill, index) => (
+          <Skill
+            key={index}
+            name={skill.skillName}
+            x={`${getRandomValue(-30, 30)}vw`}
+            y={`${getRandomValue(-20, 20)}vw`}
+          />
+        ))}
       </div></>
   );
 };
