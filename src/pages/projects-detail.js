@@ -1,52 +1,72 @@
+import { useRouter } from "next/router";
 import Image from "next/image";
-import proj1 from "../../public/images/projects/portfolio-cover-image.jpg";
 import TransitionEffect from "@/components/TransitionEffect";
+import { useState, useEffect } from "react";
+import proj1 from "../../public/images/projects/portfolio-cover-image.jpg";
 
 export default function ProjectDetail() {
+  const router = useRouter();
+  const { projectId } = router.query;
+  const [project, setProject] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`/api/project/${projectId}`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Project not found");
+        }
+      })
+      .then((data) => {
+        setProject(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+  }, [projectId]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!project) {
+    return <div>Project not found</div>;
+  }
+
   return (
     <main className="min-h-screen p-10">
       <TransitionEffect />
       <div className="max-w-3xl form-bg mx-auto">
-        <h1 className="text-2xl text-white font-bold mb-2 text-center">Payment Gateway Website</h1>
-        <p className="text-gray-400 mb-4 text-center">Web Development</p>
+        <h1 className="text-2xl text-white font-bold mb-2 text-center">
+          {project.projectTitle}
+        </h1>
+        <p className="text-gray-400 mb-4 text-center">{project.projectCategory}</p>
         <Image
-          src={proj1} // Replace URL with your project image
-          alt="Payment Gateway Website"
+          src={proj1}
+          alt={project.projectTitle}
           className="mb-4 rounded-lg mx-auto"
         />
         <div className="mb-4">
-          <p className="text-gray-300">
-            The Payment Gateway Website is a project developed to provide
-            online payment solutions for businesses and e-commerce. This
-            website allows users to securely and conveniently make payments
-            using various payment methods, such as credit cards, bank transfers,
-            and digital wallets.
-          </p>
+          <p className="text-gray-300">{project.projectDescription}</p>
         </div>
         <div className="mb-4">
           <h2 className="text-xl text-gray-100 font-semibold mb-2">Key Features:</h2>
           <ul className="list-disc pl-6 text-gray-300">
-            <li>Integration with various payment methods.</li>
-            <li>High-level security system to protect user data.</li>
-            <li>User transaction history for payment tracking.</li>
-            <li>Responsive and user-friendly user interface.</li>
-            <li>User account management and profile settings.</li>
+            {project.projectFeature.map((feature, index) => (
+              <li key={index}>{feature}</li>
+            ))}
           </ul>
         </div>
         <div className="flex flex-wrap mx-auto">
-          <span className="mr-3 mb-2 py-1 px-3 bg-gray-700 text-white rounded-full text-sm">
-            Web Development
-          </span>
-          <span className="mr-3 mb-2 py-1 px-3 bg-gray-700 text-white rounded-full text-sm">
-            E-commerce
-          </span>
-          <span className="mr-3 mb-2 py-1 px-3 bg-gray-700 text-white rounded-full text-sm">
-            Payment Gateway
-          </span>
-          <span className="mr-3 mb-2 py-1 px-3 bg-gray-700 text-white rounded-full text-sm">
-            Security
-          </span>
-          {/* Add more tags if needed */}
+          {project.projectTags.map((tag, index) => (
+            <span key={index} className="mr-3 mb-2 py-1 px-3 bg-gray-700 text-white rounded-full text-sm">
+              {tag}
+            </span>
+          ))}
         </div>
       </div>
     </main>
