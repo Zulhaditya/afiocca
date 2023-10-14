@@ -69,7 +69,7 @@ const AdminProject = () => {
               className="border rounded p-4 shadow-md w-[350px] h-[450px]"
             >
               <img
-                src=""
+                src={project.uploadImage}
                 alt={project.projectTitle}
                 className="w-full h-52 object-cover"
               />
