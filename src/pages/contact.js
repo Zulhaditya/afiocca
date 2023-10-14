@@ -1,7 +1,27 @@
 import TransitionEffect from "@/components/TransitionEffect";
 import Head from "next/head";
+import Swal from "sweetalert2";
+import emailjs from "@emailjs/browser"
+import { useRef } from "react";
 
 export default function Contact() {
+  const form = useRef()
+
+  const sendEmail = (e) => {
+    e.preventDefault()
+
+    emailjs.sendForm('service_7gatocp', 'template_yjfxcaa', form.current, 'TCRSjkocg4515XReA')
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Successful messaging!"
+        })
+      }, (error) => {
+        alert(error.text)
+      })
+  }
+
   return (
     <>
       <Head>
@@ -15,7 +35,7 @@ export default function Contact() {
         <TransitionEffect />
         <div className="max-w-2xl mx-auto shadow-lg p-5 rounded-lg border-t-4 border-zinc-400 bg-zinc-800">
           <h1 className="text-3xl font-semibold mb-4 text-center text-white">Get in touch</h1>
-          <form>
+          <form ref={form} onSubmit={sendEmail}>
             <div className="mb-4">
               <label htmlFor="name" className="block text-gray-200">Name</label>
               <input
@@ -52,6 +72,7 @@ export default function Contact() {
             <div className="text-center">
               <button
                 type="submit"
+                value="Send"
                 className="px-6 py-3 text-white bg-cyan-600 font-bold rounded-md hover:bg-cyan-700 focus:outline-none"
               >
                 Send Message
