@@ -2,9 +2,11 @@ import TransitionEffect from '@/components/TransitionEffect';
 import Link from 'next/link';
 import { useState } from 'react';
 import Head from 'next/head';
+import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 
 const Resume = () => {
-
+  const router = useRouter();
   const [educationData, setEducationData] = useState({
     degree: "",
     study: "",
@@ -77,7 +79,6 @@ const Resume = () => {
       });
 
       if (response.ok) {
-        // Tangani keberhasilan, misalnya, reset bidang formulir atau tampilkan pesan sukses
         setEducationData({
           degree: "",
           study: "",
@@ -85,13 +86,18 @@ const Resume = () => {
           years: "",
           description: "",
         });
-        alert("Data education berhasil ditambahkan");
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Successfully added data!",
+        }).then(() => {
+          router.push("/edit-resume");
+        });
       } else {
-        // Tangani kesalahan, misalnya, tampilkan pesan kesalahan
-        console.error("Kesalahan menambahkan data pendidikan");
+        console.error("Failed to add data.");
       }
     } catch (error) {
-      console.error("Kesalahan:", error);
+      console.error("Error : ", error);
     }
   };
 
@@ -109,7 +115,6 @@ const Resume = () => {
       });
 
       if (response.ok) {
-        // Tangani keberhasilan, misalnya, reset bidang formulir atau tampilkan pesan sukses
         setExperienceData({
           jobDesk: "",
           years: "",
@@ -117,13 +122,18 @@ const Resume = () => {
           address: "",
           description: "",
         });
-        alert("Data experience berhasil ditambahkan");
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Successfully added data!",
+        }).then(() => {
+          router.push("/edit-resume");
+        });
       } else {
-        // Tangani kesalahan, misalnya, tampilkan pesan kesalahan
-        console.error("Kesalahan menambahkan data experience");
+        console.error("Failed to add data.");
       }
     } catch (error) {
-      console.error("Kesalahan:", error);
+      console.error("Error : ", error);
     }
   };
 
@@ -146,13 +156,18 @@ const Resume = () => {
           years: "",
           credential: "",
         });
-        alert("Data certificates berhasil ditambahkan");
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Successfully added data!",
+        }).then(() => {
+          router.push("/edit-resume");
+        });
       } else {
-        // Tangani kesalahan, misalnya, tampilkan pesan kesalahan
-        console.error("Kesalahan menambahkan data sertifikat");
+        console.error("Failed to add data.");
       }
     } catch (error) {
-      console.error("Kesalahan:", error);
+      console.error("Error : ", error);
     }
   };
 
@@ -173,12 +188,18 @@ const Resume = () => {
         setSkillsData({
           skillName: "",
         });
-        alert("Data skills berhasil ditambahkan");
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Successfully added data!",
+        }).then(() => {
+          router.push("/edit-resume");
+        });
       } else {
-        console.error("Kesalahan menambahkan data skill");
+        console.error("Failed to add data.");
       }
     } catch (error) {
-      console.error("Kesalahan:", error);
+      console.error("Error : ", error);
     }
   };
 
@@ -422,9 +443,7 @@ const Resume = () => {
           </div>
         </div>
       </div>
-
     </>
-
   );
 };
 

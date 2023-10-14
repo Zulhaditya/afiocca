@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import TransitionEffect from '@/components/TransitionEffect';
 import Head from 'next/head';
+import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 
 function EditResume() {
   const [resumeData, setResumeData] = useState([]);
   const [updatedData, setUpdatedData] = useState({});
+  const router = useRouter()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,8 +35,13 @@ function EditResume() {
       });
 
       if (response.status === 200) {
-        alert("Succesfully deleted data!")
-        window.location.reload();
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Successfully deleted data!",
+        }).then(() => {
+          window.location.reload();
+        });
       } else {
         console.error('Error deleting data');
       }
@@ -53,8 +61,13 @@ function EditResume() {
       });
 
       if (response.status === 200) {
-        alert('Successfully updated data!');
-        window.location.reload();
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Successfully updated data!",
+        }).then(() => {
+          window.location.reload();
+        });
       } else {
         console.error('Error updating data');
       }
@@ -203,9 +216,7 @@ function EditResume() {
           </Link>
         </div>
       </div>
-
     </>
-
   );
 }
 
