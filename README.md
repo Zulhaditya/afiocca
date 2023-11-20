@@ -38,5 +38,5 @@ Project is: _complete._ <!-- / _complete_ / _no longer being worked on_. reason 
 
 ## Contact
 
-Created by [@Zulhaditya](https://itsmyportofolio.netlify.app/) - feel free to contribute in this repository!
+Created by [@Zulhaditya](https://zulhaditya.vercel.app) - feel free to contact me!
 
