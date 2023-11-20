@@ -18,7 +18,7 @@
 
 ## Screenshots
 
-![Example screenshot](./public/afiocca-screenshot.png)
+![Example screenshot](./afiocca-screenshot.png)
 
 ## Setup
 
